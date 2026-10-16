@@ -108,13 +108,19 @@ Installing this Chrome Extension takes less than 1 minute:
 
 ---
 
-## ☕ Donations & Contact
+## ☕ Donations & Contact the Developer
 
-If you enjoy using this tool and want to support continued updates, donations are warmly welcomed:
+If you enjoy using this tool and want to support continued updates, donations are warmly welcomed! 🙏
 
 - **Solana (SOL) Address**:
   ```text
   gfohRh3zTEkouem1EBVetipcNBKwrXqTDbj3EUwLZMh
   ```
 
-*Created with ❤️ for the Solana Bombers community.*
+### 📬 Contact & Links
+- **Website**: [www.oliverrevelo.com](https://www.oliverrevelo.com)
+- **GitHub**: [@oancholarevelo](https://github.com/oancholarevelo)
+
+---
+
+*Created with ❤️ by Oliver Revelo for the Solana Bombers community.*

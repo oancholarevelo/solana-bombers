@@ -1442,3 +1442,36 @@ input:checked + .slider:before {
   color: #fff;
 }
 
+.developer-credit-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+  padding-top: 5px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 8px;
+  color: var(--ink-dim);
+}
+
+.developer-credit-row strong {
+  color: #fff;
+}
+
+.dev-links {
+  display: flex;
+  gap: 8px;
+}
+
+.dev-links a {
+  color: var(--neon-cyan);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.15s ease;
+}
+
+.dev-links a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+
