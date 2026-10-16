@@ -1,6 +1,6 @@
 # 💣 Solana Bombers - Chest & Profit Calculator (Chrome Extension)
 
-> **The ultimate real-time companion for [solanabombers.fun](https://solanabombers.fun)**  
+> **The ultimate real-time companion for [solanabombers.fun](https://solanabombers.fun/?ref=WK8CH8L)**  
 > Live chest rewards tracking, automatic $BOMBERS and USD/PHP prices, investment & ROI calculator, hero energy regen analyzer, and ultra-rare 0.006% Prison alarms!
 
 ---
@@ -40,7 +40,7 @@ Installing this Chrome Extension takes less than 1 minute:
 5. Select the `solana-bombers` folder you downloaded or cloned.
 
 ### Step 3: Play & Calculate!
-1. Navigate to **[solanabombers.fun](https://solanabombers.fun)** and enter the **Treasure Hunt**.
+1. Navigate to **[solanabombers.fun](https://solanabombers.fun/?ref=WK8CH8L)** and enter the **Treasure Hunt**.
 2. The **floating in-game HUD widget** will automatically appear on your screen and track everything in real-time!
 3. Click the extension icon in your Chrome toolbar anytime to view detailed ROI and daily profit analytics.
 
