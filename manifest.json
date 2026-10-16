@@ -1,0 +1,65 @@
+{
+  "manifest_version": 3,
+  "name": "Solana Bombers - Chest & Profit Calculator",
+  "version": "1.0.1",
+  "description": "Real-time chest rewards calculator, projected total BOMBERS, and 0.006% Prison (Free Hero) detector for Solana Bombers.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Solana Bombers Calculator",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "permissions": [
+    "storage",
+    "notifications",
+    "activeTab",
+    "scripting",
+    "alarms"
+  ],
+  "host_permissions": [
+    "*://*.solanabombers.fun/*",
+    "*://solanabombers.fun/*",
+    "https://api.dexscreener.com/*",
+    "https://open.er-api.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.solanabombers.fun/*",
+        "*://solanabombers.fun/*"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "inpage.js",
+        "icons/*"
+      ],
+      "matches": [
+        "*://*.solanabombers.fun/*",
+        "*://solanabombers.fun/*"
+      ]
+    }
+  ]
+}

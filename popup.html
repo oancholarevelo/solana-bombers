@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solana Bombers Calculator</title>
+  <link rel="stylesheet" href="popup.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <header class="popup-header">
+      <div class="brand">
+        <img src="icons/icon32.png" alt="Logo" class="brand-icon">
+        <div class="brand-text">
+          <h1>SOLANA BOMBERS</h1>
+          <span class="sub-brand">CHEST & PROFIT CALCULATOR</span>
+        </div>
+      </div>
+      <div class="connection-status" id="conn-status">
+        <span class="status-dot dot-inactive" id="status-dot"></span>
+        <span class="status-label" id="status-text">Scanning...</span>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="popup-tabs">
+      <button class="tab-btn active" data-tab="live">Live Map</button>
+      <button class="tab-btn" data-tab="profit">₱ Profit</button>
+      <button class="tab-btn" data-tab="settings">Settings</button>
+      <button class="tab-btn" data-tab="codex">Codex</button>
+    </nav>
+
+    <!-- Tab 1: Live Map View -->
+    <section class="tab-content active" id="tab-live">
+      <!-- Prison Alert Banner -->
+      <div class="prison-banner banner-none" id="prison-banner">
+        <div class="prison-icon" id="prison-icon">🔒</div>
+        <div class="prison-info">
+          <div class="prison-headline" id="prison-headline">NO PRISON (0.006%)</div>
+          <div class="prison-detail" id="prison-detail">Free hero chance per map spawn</div>
+        </div>
+        <button class="btn-test-sound" id="btn-test-sound" title="Test Prison Alarm Chime">🔊 Test</button>
+      </div>
+
+      <!-- Main Yield Card -->
+      <div class="card yield-card">
+        <div class="card-glow"></div>
+        <div class="yield-header">
+          <span class="yield-title">REMAINING FROM ALL CHESTS</span>
+          <span class="map-tag" id="val-map-seq">MAP -</span>
+        </div>
+        <div class="yield-amount" id="val-map-yield">+0.00 BOMBERS</div>
+        
+        <div class="yield-divider"></div>
+
+        <div class="projected-row">
+          <div class="proj-col">
+            <span class="proj-label">CURRENT BALANCE</span>
+            <span class="proj-val" id="val-current-balance">0.00</span>
+          </div>
+          <div class="proj-operator">+</div>
+          <div class="proj-col">
+            <span class="proj-label">MAP REWARD</span>
+            <span class="proj-val" id="val-calc-reward">0.00</span>
+          </div>
+          <div class="proj-operator">=</div>
+          <div class="proj-col highlight">
+            <span class="proj-label">TOTAL AFTER MAP</span>
+            <span class="proj-val proj-total" id="val-projected-total">0.00</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Session & Health Overview -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="s-label">SESSION EARNED</span>
+          <span class="s-val s-gold" id="val-session">+0.00</span>
+        </div>
+        <div class="stat-card">
+          <span class="s-label">TOTAL CHESTS</span>
+          <span class="s-val s-cyan" id="val-chest-total">0</span>
+        </div>
+        <div class="stat-card">
+          <span class="s-label">TOTAL CHEST HP</span>
+          <span class="s-val s-purple" id="val-hp-total">0 HP</span>
+        </div>
+      </div>
+
+      <!-- Chest Breakdown Cards -->
+      <div class="section-title">CHEST BREAKDOWN</div>
+      <div class="chests-breakdown">
+        <!-- Wood -->
+        <div class="chest-row chest-wood">
+          <div class="chest-meta">
+            <span class="chest-name">🪵 Wooden</span>
+            <span class="chest-unit">35.625 ea · 80 HP</span>
+          </div>
+          <div class="chest-stats">
+            <span class="chest-count-badge" id="c-count-3">0</span>
+            <span class="chest-subtotal" id="c-sub-3">0.00</span>
+          </div>
+        </div>
+
+        <!-- Metal -->
+        <div class="chest-row chest-metal">
+          <div class="chest-meta">
+            <span class="chest-name">🔩 Metal</span>
+            <span class="chest-unit">81.25 ea · 170 HP</span>
+          </div>
+          <div class="chest-stats">
+            <span class="chest-count-badge" id="c-count-4">0</span>
+            <span class="chest-subtotal" id="c-sub-4">0.00</span>
+          </div>
+        </div>
+
+        <!-- Gold -->
+        <div class="chest-row chest-gold">
+          <div class="chest-meta">
+            <span class="chest-name">🏆 Gold</span>
+            <span class="chest-unit">406.25 ea · 800 HP</span>
+          </div>
+          <div class="chest-stats">
+            <span class="chest-count-badge" id="c-count-5">0</span>
+            <span class="chest-subtotal" id="c-sub-5">0.00</span>
+          </div>
+        </div>
+
+        <!-- Diamond -->
+        <div class="chest-row chest-diamond">
+          <div class="chest-meta">
+            <span class="chest-name">💎 Diamond</span>
+            <span class="chest-unit">812.50 ea · 1,300 HP</span>
+          </div>
+          <div class="chest-stats">
+            <span class="chest-count-badge" id="c-count-6">0</span>
+            <span class="chest-subtotal" id="c-sub-6">0.00</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Action link -->
+      <div class="footer-actions">
+        <a href="https://solanabombers.fun" target="_blank" class="btn-play">Open solanabombers.fun ➔</a>
+      </div>
+    </section>
+
+    <!-- Tab 2: Profit & Daily Earnings (PHP) View -->
+    <section class="tab-content" id="tab-profit">
+      <!-- Live Market Ticker Card (Always Auto-Updated) -->
+      <div class="market-ticker-card">
+        <div class="ticker-header">
+          <div class="ticker-left">
+            <span class="ticker-token">$BOMBERS</span>
+            <span class="ticker-source-tag">PUMP.FUN</span>
+            <span class="ticker-live-pill" title="Live price auto-updated via DexScreener & Open Exchange Rates">
+              <span class="ticker-live-dot"></span>
+              <span class="ticker-live-text">LIVE</span>
+            </span>
+          </div>
+          <button class="btn-refresh-price" id="btn-refresh-price" title="Fetch latest live market price">🔄 Refresh</button>
+        </div>
+        <div class="ticker-price-row">
+          <div class="ticker-price-item">
+            <span class="t-label">PRICE (USD)</span>
+            <span class="t-val t-usd" id="val-price-usd">$0.000511</span>
+          </div>
+          <div class="ticker-price-item">
+            <span class="t-label">PRICE (PHP)</span>
+            <span class="t-val t-php" id="val-price-php">₱0.0322</span>
+          </div>
+          <div class="ticker-price-item">
+            <span class="t-label">USD / PHP</span>
+            <span class="t-val t-fx" id="val-usd-php">₱63.08</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROI & Investment Tracker Card -->
+      <div class="roi-card">
+        <div class="roi-header">
+          <span class="roi-title">₱ INVESTMENT & ROI TRACKER</span>
+          <span class="roi-badge" id="roi-badge">0% ROI</span>
+        </div>
+        <div class="config-field" style="margin-bottom: 8px;">
+          <label>💰 Total Investment (₱ PHP)</label>
+          <input type="number" step="100" id="set-investment-php" class="profit-input" placeholder="e.g. 5000">
+        </div>
+        
+        <div class="roi-progress-track">
+          <div class="roi-progress-bar" id="roi-progress-bar" style="width: 0%;"></div>
+        </div>
+
+        <div class="roi-stats-row">
+          <div class="roi-stat-box">
+            <span class="roi-stat-lbl">REMAINING TO ROI</span>
+            <span class="roi-stat-val" id="roi-remaining-php">₱0.00</span>
+          </div>
+          <div class="roi-stat-box">
+            <span class="roi-stat-lbl">BOMBERS NEEDED</span>
+            <span class="roi-stat-val s-gold" id="roi-bombers-needed">0</span>
+          </div>
+          <div class="roi-stat-box">
+            <span class="roi-stat-lbl">EST. DAYS TO ROI</span>
+            <span class="roi-stat-val s-cyan" id="roi-days-needed">--</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Profit Highlight Card -->
+      <div class="card yield-card profit-hero-card">
+        <div class="card-glow"></div>
+        <div class="yield-header">
+          <span class="yield-title">AVERAGE DAILY EARNINGS</span>
+          <span class="map-tag" id="val-profit-days">4.0 DAYS</span>
+        </div>
+        <div class="profit-big-php" id="val-daily-php">₱0.00 / DAY</div>
+        <div class="profit-sub-bombers" id="val-daily-bombers">+0.00 BOMBERS / DAY</div>
+
+        <div class="yield-divider"></div>
+
+        <div class="projected-row">
+          <div class="proj-col">
+            <span class="proj-label">TOTAL PROFIT (PHP)</span>
+            <span class="proj-val s-gold" id="val-total-php">₱0.00</span>
+          </div>
+          <div class="proj-operator">·</div>
+          <div class="proj-col">
+            <span class="proj-label">TOTAL (USD)</span>
+            <span class="proj-val" id="val-total-usd">$0.00</span>
+          </div>
+          <div class="proj-operator">·</div>
+          <div class="proj-col highlight">
+            <span class="proj-label">PLAYTIME</span>
+            <span class="proj-val proj-total" id="val-playtime-hours">0h</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Projections Grid -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="s-label">HOURLY (1H)</span>
+          <span class="s-val s-cyan" id="val-rate-hourly">₱0.00</span>
+        </div>
+        <div class="stat-card">
+          <span class="s-label">WEEKLY (7D)</span>
+          <span class="s-val s-gold" id="val-rate-weekly">₱0.00</span>
+        </div>
+        <div class="stat-card">
+          <span class="s-label">MONTHLY (30D)</span>
+          <span class="s-val s-purple" id="val-rate-monthly">₱0.00</span>
+        </div>
+      </div>
+
+      <!-- Bomber Heroes & Energy Regen Stats Card -->
+      <div class="section-title">⚔️ HERO POWERS & ENERGY REGEN</div>
+      <div class="hero-stats-card">
+        <div class="hero-stats-grid">
+          <div class="hero-stat-item">
+            <span class="h-label">⚡ TEAM POWER</span>
+            <span class="h-val s-gold" id="hero-team-power">--</span>
+          </div>
+          <div class="hero-stat-item">
+            <span class="h-label">🔋 TEAM ENERGY</span>
+            <span class="h-val s-cyan" id="hero-team-energy">--</span>
+          </div>
+          <div class="hero-stat-item">
+            <span class="h-label">💣 HERO COUNT</span>
+            <span class="h-val" id="hero-active-count">--</span>
+          </div>
+          <div class="hero-stat-item">
+            <span class="h-label">⏱️ REGEN / MIN</span>
+            <span class="h-val s-good" id="hero-regen-rate">0.5 / min</span>
+          </div>
+        </div>
+        <div class="hero-energy-note">
+          <strong>⚡ Energy & Regen Rules:</strong><br>
+          • 1 Stamina = 50 Max Energy (1 Bomb = 1 Energy)<br>
+          • Resting Outside: <strong>0.5 energy/min</strong> (1 energy / 2 mins)<br>
+          • Fast Charge Skill: <strong>+0.5 energy/min</strong> (1 energy / 1 min)<br>
+          • Houses: Tiny (<strong>+2/m</strong>) · Mini (<strong>+5/m</strong>) · Luxury (<strong>+8/m</strong>) · Villa (<strong>+14/m</strong>)
+        </div>
+      </div>
+
+      <!-- User Inputs & Settings Card -->
+      <div class="section-title">PLAYER STATS & CONFIGURATION</div>
+      <div class="profit-config-card">
+        <div class="config-field">
+          <label>📅 Start Date & Time</label>
+          <input type="datetime-local" id="set-start-date" class="profit-input">
+          <span class="config-hint">When you started playing (defaults to your start: Mon 9:00 AM)</span>
+        </div>
+
+        <div class="config-row-2">
+          <div class="config-field">
+            <label>💣 Total BOMBERS</label>
+            <div class="input-with-action">
+              <input type="number" step="0.1" id="set-profit-bombers" class="profit-input" placeholder="0">
+              <button class="btn-input-action" id="btn-sync-game-balance" title="Sync from Current In-Game Balance">⚡ Sync</button>
+            </div>
+          </div>
+          <div class="config-field">
+            <label>🏁 Starting BOMBERS</label>
+            <input type="number" step="0.1" id="set-starting-bombers" class="profit-input" placeholder="0">
+          </div>
+        </div>
+
+        <div class="setting-btn-row">
+          <button class="btn-primary" id="btn-save-profit-settings">Save & Calculate</button>
+          <button class="btn-secondary" id="btn-reset-profit-settings">Reset Defaults</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 3: Settings View -->
+    <section class="tab-content" id="tab-settings">
+      <div class="section-title">OVERLAY & ALERTS</div>
+      
+      <div class="setting-item">
+        <div class="setting-info">
+          <div class="setting-name">In-Game Floating HUD</div>
+          <div class="setting-desc">Show draggable stats widget directly on game screen</div>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="set-hud-visible" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="setting-item">
+        <div class="setting-info">
+          <div class="setting-name">Prison Sound Alarm</div>
+          <div class="setting-desc">Plays 8-bit victory fanfare when Prison block spawns</div>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="set-sound-enabled" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="setting-item">
+        <div class="setting-info">
+          <div class="setting-name">Desktop Notifications</div>
+          <div class="setting-desc">Show Windows desktop alert when Prison is found</div>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="set-notifications-enabled" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="setting-item">
+        <div class="setting-info">
+          <div class="setting-name">HUD Compact Mode</div>
+          <div class="setting-desc">Start floating HUD in minimized mini-pill view</div>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="set-compact-mode">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="setting-btn-row">
+        <button class="btn-secondary" id="btn-reset-pos">Reset HUD Position</button>
+      </div>
+
+      <div class="section-title" style="margin-top: 14px;">CUSTOM CHEST REWARDS</div>
+      <div class="custom-rewards-grid">
+        <div class="reward-input-group">
+          <label>🪵 Wooden Chest</label>
+          <input type="number" step="0.001" id="set-reward-wood">
+        </div>
+        <div class="reward-input-group">
+          <label>🔩 Metal Chest</label>
+          <input type="number" step="0.001" id="set-reward-metal">
+        </div>
+        <div class="reward-input-group">
+          <label>🏆 Gold Chest</label>
+          <input type="number" step="0.001" id="set-reward-gold">
+        </div>
+        <div class="reward-input-group">
+          <label>💎 Diamond Chest</label>
+          <input type="number" step="0.001" id="set-reward-diamond">
+        </div>
+      </div>
+      <div class="setting-btn-row">
+        <button class="btn-primary" id="btn-save-rewards">Save Rewards</button>
+        <button class="btn-secondary" id="btn-reset-rewards">Reset Defaults</button>
+      </div>
+    </section>
+
+    <!-- Tab 3: Codex Reference View -->
+    <section class="tab-content" id="tab-codex">
+      <div class="section-title">GAME CODEX REFERENCE</div>
+      <table class="codex-table">
+        <thead>
+          <tr>
+            <th>Block</th>
+            <th>HP</th>
+            <th>Reward</th>
+            <th>Spawn</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>🧱 Brick</td>
+            <td>1</td>
+            <td>—</td>
+            <td>70.348%</td>
+          </tr>
+          <tr>
+            <td>🪵 Wooden chest</td>
+            <td>80</td>
+            <td>35.625</td>
+            <td>19.094%</td>
+          </tr>
+          <tr>
+            <td>🔩 Metal chest</td>
+            <td>170</td>
+            <td>81.25</td>
+            <td>7.035%</td>
+          </tr>
+          <tr>
+            <td>🏆 Gold chest</td>
+            <td>800</td>
+            <td>406.25</td>
+            <td>2.512%</td>
+          </tr>
+          <tr>
+            <td>💎 Diamond chest</td>
+            <td>1,300</td>
+            <td>812.5</td>
+            <td>1.005%</td>
+          </tr>
+          <tr class="codex-prison-row">
+            <td>🚨 Prison</td>
+            <td>2,000</td>
+            <td class="prison-reward">free hero</td>
+            <td class="prison-spawn">0.006%</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="codex-note">
+        <strong>💡 Prison Rescue Mechanics:</strong><br>
+        Breaking a Prison block frees a hero! Once broken, head to <strong>Heroes → Rescues</strong> in game to claim your free Bomber hero.
+      </div>
+    </section>
+
+    <!-- Donations Banner -->
+    <div class="donation-card" id="donation-card">
+      <div class="donation-header">
+        <div class="donation-title-group">
+          <span class="donation-heart">💖</span>
+          <span class="donation-title">Donations are appreciated!</span>
+        </div>
+        <span class="donation-tag">SOLANA</span>
+      </div>
+      <div class="donation-box" id="btn-copy-donation" title="Click to copy Solana address">
+        <code class="donation-address">gfohRh3zTEkouem1EBVetipcNBKwrXqTDbj3EUwLZMh</code>
+        <button class="btn-copy-address" id="btn-copy-addr" type="button" title="Copy Address">
+          <span id="copy-btn-text">📋 Copy</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
